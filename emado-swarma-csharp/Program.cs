@@ -17,6 +17,7 @@ namespace emado_swarma_csharp
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            new Koneksi();
             Application.Run(new LoginForm());
         }
     }

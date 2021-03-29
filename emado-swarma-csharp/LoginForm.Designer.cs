@@ -39,7 +39,7 @@ namespace emado_swarma_csharp
             // lbl_username
             // 
             this.lbl_username.AutoSize = true;
-            this.lbl_username.Location = new System.Drawing.Point(32, 94);
+            this.lbl_username.Location = new System.Drawing.Point(42, 39);
             this.lbl_username.Name = "lbl_username";
             this.lbl_username.Size = new System.Drawing.Size(75, 20);
             this.lbl_username.TabIndex = 10;
@@ -48,7 +48,7 @@ namespace emado_swarma_csharp
             // lbl_password
             // 
             this.lbl_password.AutoSize = true;
-            this.lbl_password.Location = new System.Drawing.Point(32, 146);
+            this.lbl_password.Location = new System.Drawing.Point(42, 103);
             this.lbl_password.Name = "lbl_password";
             this.lbl_password.Size = new System.Drawing.Size(70, 20);
             this.lbl_password.TabIndex = 11;
@@ -56,23 +56,24 @@ namespace emado_swarma_csharp
             // 
             // txt_username
             // 
-            this.txt_username.Location = new System.Drawing.Point(142, 94);
+            this.txt_username.Location = new System.Drawing.Point(42, 62);
             this.txt_username.Name = "txt_username";
             this.txt_username.Size = new System.Drawing.Size(178, 27);
             this.txt_username.TabIndex = 0;
             // 
             // txt_password
             // 
-            this.txt_password.Location = new System.Drawing.Point(142, 146);
+            this.txt_password.Location = new System.Drawing.Point(42, 125);
             this.txt_password.Name = "txt_password";
+            this.txt_password.PasswordChar = '*';
             this.txt_password.Size = new System.Drawing.Size(178, 27);
             this.txt_password.TabIndex = 1;
             // 
             // btn_login
             // 
-            this.btn_login.Location = new System.Drawing.Point(142, 198);
+            this.btn_login.Location = new System.Drawing.Point(42, 175);
             this.btn_login.Name = "btn_login";
-            this.btn_login.Size = new System.Drawing.Size(94, 29);
+            this.btn_login.Size = new System.Drawing.Size(178, 40);
             this.btn_login.TabIndex = 12;
             this.btn_login.Text = "Login";
             this.btn_login.UseVisualStyleBackColor = true;
@@ -90,6 +91,7 @@ namespace emado_swarma_csharp
             this.Controls.Add(this.lbl_username);
             this.Name = "LoginForm";
             this.Text = "Login Emado HRIS";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

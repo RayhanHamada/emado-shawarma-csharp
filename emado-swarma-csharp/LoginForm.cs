@@ -13,6 +13,7 @@ namespace emado_swarma_csharp
     public partial class LoginForm : Form
     {
         private string username, password;
+        private TableForm tableForm;
 
         private void btn_login_Click(object sender, EventArgs e)
         {
@@ -34,6 +35,20 @@ namespace emado_swarma_csharp
 
             //Koneksi ke database
             Koneksi.Connect();
+            if (Koneksi.IsConnected())
+            {
+                tableForm = new TableForm();
+                tableForm.Show();
+                this.Visible = false;
+                return;
+            }
+
+            MessageBox.Show("Aplikasi tidak terkoneksi ke database !");
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
         }
 
         public LoginForm()
