@@ -33,7 +33,7 @@ namespace emado_swarma_csharp
 
         private void btn_test_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"nilai id row 0 {dg_karyawan.Rows[0].Cells["id"].Value}");
+            MessageBox.Show($"{dg_karyawan.Rows[0].Cells["tgl_lahir"].Value}");
         }
 
         private void dg_karyawan_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -59,6 +59,7 @@ namespace emado_swarma_csharp
                     if (success)
                     {
                         MessageBox.Show($"karyawan bernama {name} berhasil terhapus !");
+                        Koneksi.RefreshTable(table);
                         return;
                     }
 
@@ -67,10 +68,30 @@ namespace emado_swarma_csharp
             } 
             //buat update karyawan
             else if (senderGrid.Columns[colIndex] is DataGridViewButtonColumn
-                && senderGrid.Columns[colIndex].Name == "col_hapus")
+                && senderGrid.Columns[colIndex].Name == "col_update")
             {
+                var id = (int)senderGrid.Rows[rowIndex].Cells["id"].Value;
 
+                var formUpdate = new TambahUpdateForm(id);
+                formUpdate.FormClosed += FormUpdate_FormClosed;
+                formUpdate.Show();
             }
+        }
+
+        private void FormUpdate_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Koneksi.RefreshTable(table);
+        }
+
+        private void btn_tambah_Click(object sender, EventArgs e)
+        {
+            var formTambah = new TambahUpdateForm();
+            formTambah.Show();
+        }
+
+        private void btn_refresh_Click(object sender, EventArgs e)
+        {
+            Koneksi.RefreshTable(table);
         }
     }
 }

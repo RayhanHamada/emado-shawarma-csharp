@@ -47,6 +47,7 @@ namespace emado_swarma_csharp
             this.btn_tambah.TabIndex = 0;
             this.btn_tambah.Text = "Tambah Karyawan";
             this.btn_tambah.UseVisualStyleBackColor = true;
+            this.btn_tambah.Click += new System.EventHandler(this.btn_tambah_Click);
             // 
             // btn_refresh
             // 
@@ -57,6 +58,7 @@ namespace emado_swarma_csharp
             this.btn_refresh.TabIndex = 1;
             this.btn_refresh.Text = "Refresh";
             this.btn_refresh.UseVisualStyleBackColor = true;
+            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
             // 
             // dg_karyawan
             // 
