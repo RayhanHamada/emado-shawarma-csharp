@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace emado_swarma_csharp
 {
@@ -21,12 +19,16 @@ namespace emado_swarma_csharp
             dg_karyawan.DataSource = Koneksi.Table;
             dg_karyawan.Columns["id"].Visible = false;
 
-            DataGridViewCellStyle styleHapus = new DataGridViewCellStyle();
-            styleHapus.ForeColor = Color.Red;
+            DataGridViewCellStyle styleHapus = new DataGridViewCellStyle
+            {
+                ForeColor = Color.Red
+            };
             dg_karyawan.Columns["col_hapus"].DefaultCellStyle = styleHapus;
 
-            DataGridViewCellStyle styleUpdate = new DataGridViewCellStyle();
-            styleUpdate.ForeColor = Color.Green;
+            DataGridViewCellStyle styleUpdate = new DataGridViewCellStyle
+            {
+                ForeColor = Color.Green
+            };
         }
 
         private void btn_test_Click(object sender, EventArgs e)
@@ -57,6 +59,7 @@ namespace emado_swarma_csharp
                     if (success)
                     {
                         MessageBox.Show($"karyawan bernama {name} berhasil terhapus !");
+                        ResetTextCari();
                         return;
                     }
 
@@ -71,6 +74,7 @@ namespace emado_swarma_csharp
 
                 var formUpdate = new TambahUpdateForm(id);
                 formUpdate.Show();
+                ResetTextCari();
             }
         }
 
@@ -78,11 +82,31 @@ namespace emado_swarma_csharp
         {
             var formTambah = new TambahUpdateForm();
             formTambah.Show();
+            ResetTextCari();
         }
 
         private void btn_refresh_Click(object sender, EventArgs e)
         {
             Koneksi.RefreshTable();
+        }
+
+        private async void txt_cari_TextChanged(object sender, EventArgs e)
+        {
+            // this inner method checks if user is still typing
+            async Task<bool> UserKeepsTyping()
+            {
+                string txt = txt_cari.Text;   // remember text
+                await Task.Delay(500);        // wait some
+                return txt != txt_cari.Text;  // return that text chaged or not
+            }
+            if (await UserKeepsTyping()) return;
+            // user is done typing, do your stuff
+            Koneksi.SearchRefresh(txt_cari.Text);
+        }
+
+        private void ResetTextCari()
+        {
+            if (txt_cari.Text != "") txt_cari.Text = "";
         }
     }
 }

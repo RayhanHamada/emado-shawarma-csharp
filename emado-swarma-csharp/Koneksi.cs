@@ -65,6 +65,23 @@ namespace emado_swarma_csharp
             adapter.FillAsync(Table);
         }
 
+        public static void SearchRefresh(string name)
+        {
+            if (!IsConnected())
+            {
+                // make handler on not connecting
+                return;
+            }
+
+            var query = "SELECT id, nama, golongan, jabatan," +
+                "departemen, gaji, tunjangan, DATE_FORMAT(tgl_lahir, '%d-%m-%Y') as tgl_lahir," +
+                $"jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan WHERE nama LIKE '%{name}%'";
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+            Table.Clear();
+            adapter.FillAsync(Table);
+        }
+
         public static void RefreshTable()
         {
             if (!IsConnected())

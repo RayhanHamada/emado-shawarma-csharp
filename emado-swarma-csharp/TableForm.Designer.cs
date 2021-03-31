@@ -35,7 +35,6 @@ namespace emado_swarma_csharp
             this.col_hapus = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_update = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txt_cari = new System.Windows.Forms.TextBox();
-            this.btn_test = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dg_karyawan)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,16 +104,7 @@ namespace emado_swarma_csharp
             this.txt_cari.PlaceholderText = "Cari Karyawan";
             this.txt_cari.Size = new System.Drawing.Size(232, 27);
             this.txt_cari.TabIndex = 3;
-            // 
-            // btn_test
-            // 
-            this.btn_test.Location = new System.Drawing.Point(988, 512);
-            this.btn_test.Name = "btn_test";
-            this.btn_test.Size = new System.Drawing.Size(94, 29);
-            this.btn_test.TabIndex = 4;
-            this.btn_test.Text = "Test";
-            this.btn_test.UseVisualStyleBackColor = true;
-            this.btn_test.Click += new System.EventHandler(this.btn_test_Click);
+            this.txt_cari.TextChanged += new System.EventHandler(this.txt_cari_TextChanged);
             // 
             // TableForm
             // 
@@ -122,7 +112,6 @@ namespace emado_swarma_csharp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1131, 673);
-            this.Controls.Add(this.btn_test);
             this.Controls.Add(this.txt_cari);
             this.Controls.Add(this.dg_karyawan);
             this.Controls.Add(this.btn_refresh);
@@ -144,6 +133,5 @@ namespace emado_swarma_csharp
         private System.Windows.Forms.TextBox txt_cari;
         private System.Windows.Forms.DataGridViewButtonColumn col_hapus;
         private System.Windows.Forms.DataGridViewButtonColumn col_update;
-        private System.Windows.Forms.Button btn_test;
     }
 }

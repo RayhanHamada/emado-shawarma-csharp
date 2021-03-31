@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace emado_swarma_csharp
@@ -35,6 +31,7 @@ namespace emado_swarma_csharp
             {
                 this.Close();
             }
+
             namaSebelum = k.Nama;
             tambah = false;
             InitializeCustom();
@@ -44,6 +41,7 @@ namespace emado_swarma_csharp
 
         private void InitializeCustom()
         {
+
         }
 
         private void btn_update_tambah_Click(object sender, EventArgs e)
@@ -100,6 +98,7 @@ namespace emado_swarma_csharp
             k.NPWP = txt_npwp.Text;
             k.BPJS = txt_bpjs.Text;
             k.Lokasi = txt_lokasi.Text;
+
             if (pb_foto.ImageLocation != null)
             {
                 k.UrlFoto = pb_foto.ImageLocation;
