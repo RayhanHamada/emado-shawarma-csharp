@@ -2,19 +2,19 @@
 using System.Data;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
 
 namespace emado_swarma_csharp
 {
     class Koneksi
     {
-        public static MySqlConnection conn;
+        public static SQLiteConnection conn;
         public static DataTable Table { get; set; }
         public Koneksi()
         {
             try
             {
-                conn = new MySqlConnection("host=localhost; port=3306; user=root; database=emado_shawarma; convert zero datetime=True");
+                conn = new SQLiteConnection("host=localhost; port=3306; user=root; database=emado_shawarma; convert zero datetime=True");
                 conn.StateChange += Conn_StateChange;
                 Table = new DataTable();
             } catch 
@@ -48,8 +48,8 @@ namespace emado_swarma_csharp
                 "departemen, gaji, tunjangan, DATE_FORMAT(tgl_lahir, '%d-%m-%Y') as tgl_lahir," +
                 "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan";
 
-            MySqlDataAdapter selectAllKaryawan = new MySqlDataAdapter(query, conn);
-            selectAllKaryawan.FillAsync(Table);
+            var selectAllKaryawan = new SQLiteDataAdapter(query, conn);
+            selectAllKaryawan.Fill(Table);
         }
 
         public static void RefreshTableWithNewCommand(string cmd)
@@ -60,9 +60,9 @@ namespace emado_swarma_csharp
                 return;
             }
 
-            MySqlDataAdapter adapter = new MySqlDataAdapter(cmd, conn);
+            var adapter = new SQLiteDataAdapter(cmd, conn);
             Table.Clear();
-            adapter.FillAsync(Table);
+            adapter.Fill(Table);
         }
 
         public static void SearchRefresh(string name)
@@ -77,9 +77,9 @@ namespace emado_swarma_csharp
                 "departemen, gaji, tunjangan, DATE_FORMAT(tgl_lahir, '%d-%m-%Y') as tgl_lahir," +
                 $"jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan WHERE nama LIKE '%{name}%'";
 
-            MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+            var adapter = new SQLiteDataAdapter(query, conn);
             Table.Clear();
-            adapter.FillAsync(Table);
+            adapter.Fill(Table);
         }
 
         public static void RefreshTable()
@@ -94,9 +94,9 @@ namespace emado_swarma_csharp
                 "departemen, gaji, tunjangan, DATE_FORMAT(tgl_lahir, '%d-%m-%Y') as tgl_lahir," +
                 "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan";
 
-            MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+            var adapter = new SQLiteDataAdapter(query, conn);
             Table.Clear();
-            adapter.FillAsync(Table);
+            adapter.Fill(Table);
         }
 
         public static bool DeleteKaryawan(int id)
@@ -107,7 +107,7 @@ namespace emado_swarma_csharp
                 return false;
             }
 
-            var cmd = new MySqlCommand($"DELETE FROM tbl_karyawan WHERE id = {id}", conn);
+            var cmd = new SQLiteCommand($"DELETE FROM tbl_karyawan WHERE id = {id}", conn);
             var affected = cmd.ExecuteNonQuery();
             RefreshTable();
 
@@ -141,7 +141,7 @@ namespace emado_swarma_csharp
 
             Console.WriteLine(query);
 
-            var cmd = new MySqlCommand(query, conn);
+            var cmd = new SQLiteCommand(query, conn);
             var affected = cmd.ExecuteNonQuery();
             RefreshTable();
 
@@ -156,7 +156,7 @@ namespace emado_swarma_csharp
                 return null;
             }
 
-            var cmd = new MySqlCommand($"SELECT * FROM tbl_karyawan WHERE id = '{id}'", conn);
+            var cmd = new SQLiteCommand($"SELECT * FROM tbl_karyawan WHERE id = '{id}'", conn);
             var result = cmd.ExecuteReader();
             var k = new Karyawan();
 
@@ -167,8 +167,8 @@ namespace emado_swarma_csharp
             k.Golongan = result.GetString("golongan");
             k.Jabatan = result.GetString("jabatan");
             k.Departemen = result.GetString("departemen");
-            k.Gaji = result.GetUInt32("gaji");
-            k.Tunjangan = result.GetUInt32("tunjangan");
+            k.Gaji = (uint)result.GetInt32("gaji");
+            k.Tunjangan = (uint)result.GetInt32("tunjangan");
             k.TglLahir = result.GetDateTime("tgl_lahir").Date;
             k.JenisKelamin = result.GetString("jenis_kelamin");
             k.Alamat = result.GetString("alamat");
@@ -191,7 +191,7 @@ namespace emado_swarma_csharp
             }
 
             // cari karyawan dengan nama sama
-            var cmdCari = new MySqlCommand($"SELECT COUNT(nama) as banyak FROM tbl_karyawan WHERE nama = '{k.Nama}'", conn);
+            var cmdCari = new SQLiteCommand($"SELECT COUNT(nama) as banyak FROM tbl_karyawan WHERE nama = '{k.Nama}'", conn);
             var banyak = (long)cmdCari.ExecuteScalar();
 
             if (banyak > 0)
@@ -217,7 +217,7 @@ namespace emado_swarma_csharp
                 $"'{k.Lokasi}'," +
                 $"'{k.UrlFoto.Replace("\\", "\\\\")}')";
 
-            var cmd = new MySqlCommand(query, conn);
+            var cmd = new SQLiteCommand(query, conn);
             var result = cmd.ExecuteNonQuery();
             RefreshTable();
 
