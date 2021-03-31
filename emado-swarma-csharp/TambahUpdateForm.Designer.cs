@@ -278,6 +278,7 @@ namespace emado_swarma_csharp
             this.btn_upload_foto.TabIndex = 30;
             this.btn_upload_foto.Text = "Upload/Update Foto";
             this.btn_upload_foto.UseVisualStyleBackColor = true;
+            this.btn_upload_foto.Click += new System.EventHandler(this.btn_upload_foto_Click);
             // 
             // txt_tunjangan
             // 
@@ -358,7 +359,6 @@ namespace emado_swarma_csharp
 
         private System.Windows.Forms.Label lbl_nama;
         private System.Windows.Forms.Label lbl_golongan;
-        private System.Windows.Forms.Label txt_jabatan;
         private System.Windows.Forms.Label lbl_departemen;
         private System.Windows.Forms.Label lbl_gaji;
         private System.Windows.Forms.Label lbl_tgl_lahir;

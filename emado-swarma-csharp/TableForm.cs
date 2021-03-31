@@ -10,7 +10,6 @@ namespace emado_swarma_csharp
 {
     public partial class TableForm : Form
     {
-        private DataTable table;
         public TableForm()
         {
             InitializeComponent();
@@ -18,9 +17,8 @@ namespace emado_swarma_csharp
 
         private void TableForm_Load(object sender, EventArgs e)
         {
-            table = new DataTable();
-            Koneksi.FillDataGrid(table);
-            dg_karyawan.DataSource = table;
+            Koneksi.FillTable();
+            dg_karyawan.DataSource = Koneksi.Table;
             dg_karyawan.Columns["id"].Visible = false;
 
             DataGridViewCellStyle styleHapus = new DataGridViewCellStyle();
@@ -59,7 +57,6 @@ namespace emado_swarma_csharp
                     if (success)
                     {
                         MessageBox.Show($"karyawan bernama {name} berhasil terhapus !");
-                        Koneksi.RefreshTable(table);
                         return;
                     }
 
@@ -73,14 +70,8 @@ namespace emado_swarma_csharp
                 var id = (int)senderGrid.Rows[rowIndex].Cells["id"].Value;
 
                 var formUpdate = new TambahUpdateForm(id);
-                formUpdate.FormClosed += FormUpdate_FormClosed;
                 formUpdate.Show();
             }
-        }
-
-        private void FormUpdate_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Koneksi.RefreshTable(table);
         }
 
         private void btn_tambah_Click(object sender, EventArgs e)
@@ -91,7 +82,7 @@ namespace emado_swarma_csharp
 
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            Koneksi.RefreshTable(table);
+            Koneksi.RefreshTable();
         }
     }
 }

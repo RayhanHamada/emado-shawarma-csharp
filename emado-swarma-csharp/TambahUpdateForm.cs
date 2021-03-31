@@ -44,8 +44,6 @@ namespace emado_swarma_csharp
 
         private void InitializeCustom()
         {
-            dt_tgl_lahir.Format = DateTimePickerFormat.Custom;
-            dt_tgl_lahir.CustomFormat = "dd-MM-YYYY";
         }
 
         private void btn_update_tambah_Click(object sender, EventArgs e)
@@ -102,6 +100,13 @@ namespace emado_swarma_csharp
             k.NPWP = txt_npwp.Text;
             k.BPJS = txt_bpjs.Text;
             k.Lokasi = txt_lokasi.Text;
+            if (pb_foto.ImageLocation != null)
+            {
+                k.UrlFoto = pb_foto.ImageLocation;
+            } else
+            {
+                k.UrlFoto = "";
+            }
 
             bool success;
 
@@ -118,11 +123,12 @@ namespace emado_swarma_csharp
             if (success)
             {
                 MessageBox.Show($"{(tambah ? "Tambah" : "Update")} karyawan {namaSebelum} berhasil !");
+                Close();
+                
                 return;
             }
 
             MessageBox.Show($"{(tambah ? "Tambah" : "Update")} karyawan {namaSebelum} tidak berhasil");
-            this.Close();
         }
 
         private void PopulateForm(Karyawan k)
@@ -141,6 +147,16 @@ namespace emado_swarma_csharp
             txt_bpjs.Text = k.BPJS;
             txt_lokasi.Text = k.Lokasi;
             pb_foto.ImageLocation = k.UrlFoto;
+        }
+
+        private void btn_upload_foto_Click(object sender, EventArgs e)
+        {
+            FileDialog dialog = new OpenFileDialog();
+            var res = dialog.ShowDialog();
+            if (res == DialogResult.OK || res == DialogResult.Yes)
+            {
+                pb_foto.ImageLocation = dialog.FileName;
+            }
         }
     }
 }

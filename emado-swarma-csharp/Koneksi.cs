@@ -9,12 +9,14 @@ namespace emado_swarma_csharp
     class Koneksi
     {
         public static MySqlConnection conn;
+        public static DataTable Table { get; set; }
         public Koneksi()
         {
             try
             {
                 conn = new MySqlConnection("host=localhost; port=3306; user=root; database=emado_shawarma; convert zero datetime=True");
                 conn.StateChange += Conn_StateChange;
+                Table = new DataTable();
             } catch 
             {
                 
@@ -35,7 +37,7 @@ namespace emado_swarma_csharp
             return conn.State == ConnectionState.Open;
         }
 
-        public static void FillDataGrid(DataTable table)
+        public static void FillTable()
         {
             if (!IsConnected())
             {
@@ -47,10 +49,10 @@ namespace emado_swarma_csharp
                 "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan";
 
             MySqlDataAdapter selectAllKaryawan = new MySqlDataAdapter(query, conn);
-            selectAllKaryawan.FillAsync(table);
+            selectAllKaryawan.FillAsync(Table);
         }
 
-        public static void RefreshTableWithNewCommand(DataTable table, string cmd)
+        public static void RefreshTableWithNewCommand(string cmd)
         {
             if (!IsConnected())
             {
@@ -59,11 +61,11 @@ namespace emado_swarma_csharp
             }
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmd, conn);
-            table.Clear();
-            adapter.FillAsync(table);
+            Table.Clear();
+            adapter.FillAsync(Table);
         }
 
-        public static void RefreshTable(DataTable table)
+        public static void RefreshTable()
         {
             if (!IsConnected())
             {
@@ -76,8 +78,8 @@ namespace emado_swarma_csharp
                 "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan";
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
-            table.Clear();
-            adapter.FillAsync(table);
+            Table.Clear();
+            adapter.FillAsync(Table);
         }
 
         public static bool DeleteKaryawan(int id)
@@ -90,6 +92,7 @@ namespace emado_swarma_csharp
 
             var cmd = new MySqlCommand($"DELETE FROM tbl_karyawan WHERE id = {id}", conn);
             var affected = cmd.ExecuteNonQuery();
+            RefreshTable();
 
             return affected > 0;
         }
@@ -109,19 +112,21 @@ namespace emado_swarma_csharp
                 $"departemen = '{k.Departemen}'," +
                 $"gaji = {k.Gaji}," +
                 $"tunjangan = {k.Tunjangan}," +
-                $"tgl_lahir = '{k.TglLahir.Date.Year}-{k.TglLahir.Date.Month}-{k.TglLahir.Date.Month}'," +
+                $"tgl_lahir = '{k.TglLahir.ToString("yyyy-MM-dd")}'," +
                 $"jenis_kelamin = '{k.JenisKelamin}'," +
                 $"alamat = '{k.Alamat}'," +
                 $"no_rek = '{k.Norek}'," +
                 $"no_npwp = '{k.NPWP}'," +
                 $"no_bpjs = '{k.BPJS}'," +
-                $"lokasi = '{k.Lokasi}'" +
+                $"lokasi = '{k.Lokasi}'," +
+                $"url_foto = '{k.UrlFoto.Replace("\\", "\\\\")}'" +
                 $"WHERE id = {k.Id}";
 
             Console.WriteLine(query);
 
             var cmd = new MySqlCommand(query, conn);
             var affected = cmd.ExecuteNonQuery();
+            RefreshTable();
 
             return affected > 0;
         }
@@ -153,7 +158,7 @@ namespace emado_swarma_csharp
             k.Norek = result.GetString("no_rek");
             k.NPWP = result.GetString("no_npwp");
             k.BPJS = result.GetString("no_bpjs");
-            k.Lokasi = result.GetString("no_bpjs");
+            k.Lokasi = result.GetString("lokasi");
             k.UrlFoto = result.GetString("url_foto");
             result.Close();
 
@@ -186,17 +191,19 @@ namespace emado_swarma_csharp
                 $"'{k.Departemen}'," +
                 $"{k.Gaji}," +
                 $"{k.Tunjangan}," +
-                $"'{k.TglLahir.Date.Year}-{k.TglLahir.Date.Month}-{k.TglLahir.Date.Month}'," +
+                $"'{k.TglLahir.ToString("yyyy-MM-dd")}'," +
                 $"'{k.JenisKelamin}'," +
                 $"'{k.Alamat}'," +
                 $"'{k.Norek}'," +
                 $"'{k.NPWP}'," +
                 $"'{k.BPJS}'," +
                 $"'{k.Lokasi}'," +
-                $"'{k.UrlFoto}')";
+                $"'{k.UrlFoto.Replace("\\", "\\\\")}')";
 
             var cmd = new MySqlCommand(query, conn);
             var result = cmd.ExecuteNonQuery();
+            RefreshTable();
+
             return result > 0;
         }
 
