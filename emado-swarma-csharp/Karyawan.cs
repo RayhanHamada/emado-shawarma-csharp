@@ -6,7 +6,7 @@ namespace emado_swarma_csharp
 {
     class Karyawan
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string Nama { get; set; }
         public string Golongan { get; set; }
@@ -27,7 +27,7 @@ namespace emado_swarma_csharp
         public Karyawan() { }
 
         //untuk update data
-        public Karyawan(int id)
+        public Karyawan(long id)
         {
             this.Id = id;
         }

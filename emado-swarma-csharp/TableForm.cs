@@ -53,7 +53,7 @@ namespace emado_swarma_csharp
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var id = (int)senderGrid.Rows[rowIndex].Cells["id"].Value;
+                    var id = (long)senderGrid.Rows[rowIndex].Cells["id"].Value;
                     var success = Koneksi.DeleteKaryawan(id);
 
                     if (success)
@@ -70,7 +70,7 @@ namespace emado_swarma_csharp
             else if (senderGrid.Columns[colIndex] is DataGridViewButtonColumn
                 && senderGrid.Columns[colIndex].Name == "col_update")
             {
-                var id = (int)senderGrid.Rows[rowIndex].Cells["id"].Value;
+                var id = (long)senderGrid.Rows[rowIndex].Cells["id"].Value;
 
                 var formUpdate = new TambahUpdateForm(id);
                 formUpdate.Show();
@@ -87,6 +87,12 @@ namespace emado_swarma_csharp
 
         private void btn_refresh_Click(object sender, EventArgs e)
         {
+            if (txt_cari.Text != "")
+            {
+                Koneksi.SearchRefresh(txt_cari.Text);
+                return;
+            }
+
             Koneksi.RefreshTable();
         }
 

@@ -23,7 +23,7 @@ namespace emado_swarma_csharp
         }
 
         //untuk update karyawan
-        public TambahUpdateForm(int id)
+        public TambahUpdateForm(long id)
         {
             InitializeComponent();
             k = Koneksi.GetKaryawan(id);

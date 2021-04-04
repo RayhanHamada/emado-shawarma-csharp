@@ -14,7 +14,7 @@ namespace emado_swarma_csharp
         {
             try
             {
-                conn = new SQLiteConnection("host=localhost; port=3306; user=root; database=emado_shawarma; convert zero datetime=True");
+                conn = new SQLiteConnection("Data Source=D:\\emado_shawarma;Version=3;");
                 conn.StateChange += Conn_StateChange;
                 Table = new DataTable();
             } catch 
@@ -45,8 +45,8 @@ namespace emado_swarma_csharp
             }
 
             var query = "SELECT id, nama, golongan, jabatan," +
-                "departemen, gaji, tunjangan, DATE_FORMAT(tgl_lahir, '%d-%m-%Y') as tgl_lahir," +
-                "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan";
+                "departemen, gaji, tunjangan, STRFTIME('%d-%m-%Y', DATETIME(tgl_lahir)) as tgl_lahir," +
+                "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi, url_foto FROM tbl_karyawan";
 
             var selectAllKaryawan = new SQLiteDataAdapter(query, conn);
             selectAllKaryawan.Fill(Table);
@@ -74,8 +74,8 @@ namespace emado_swarma_csharp
             }
 
             var query = "SELECT id, nama, golongan, jabatan," +
-                "departemen, gaji, tunjangan, DATE_FORMAT(tgl_lahir, '%d-%m-%Y') as tgl_lahir," +
-                $"jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan WHERE nama LIKE '%{name}%'";
+                "departemen, gaji, tunjangan, STRFTIME('%d-%m-%Y', DATETIME(tgl_lahir)) as tgl_lahir," +
+                $"jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi, url_foto FROM tbl_karyawan WHERE nama LIKE '%{name}%'";
 
             var adapter = new SQLiteDataAdapter(query, conn);
             Table.Clear();
@@ -91,15 +91,15 @@ namespace emado_swarma_csharp
             }
 
             var query = "SELECT id, nama, golongan, jabatan," +
-                "departemen, gaji, tunjangan, DATE_FORMAT(tgl_lahir, '%d-%m-%Y') as tgl_lahir," +
-                "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi FROM tbl_karyawan";
+                "departemen, gaji, tunjangan, STRFTIME('%d-%m-%Y', DATETIME(tgl_lahir)) as tgl_lahir," +
+                "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi, url_foto FROM tbl_karyawan";
 
             var adapter = new SQLiteDataAdapter(query, conn);
             Table.Clear();
             adapter.Fill(Table);
         }
 
-        public static bool DeleteKaryawan(int id)
+        public static bool DeleteKaryawan(long id)
         {
             if (!IsConnected())
             {
@@ -136,10 +136,8 @@ namespace emado_swarma_csharp
                 $"no_npwp = '{k.NPWP}'," +
                 $"no_bpjs = '{k.BPJS}'," +
                 $"lokasi = '{k.Lokasi}'," +
-                $"url_foto = '{k.UrlFoto.Replace("\\", "\\\\")}'" +
+                $"url_foto = '{k.UrlFoto}'" +
                 $"WHERE id = {k.Id}";
-
-            Console.WriteLine(query);
 
             var cmd = new SQLiteCommand(query, conn);
             var affected = cmd.ExecuteNonQuery();
@@ -148,7 +146,7 @@ namespace emado_swarma_csharp
             return affected > 0;
         }
 
-        public static Karyawan GetKaryawan(int id)
+        public static Karyawan GetKaryawan(long id)
         {
             if (!IsConnected())
             {
@@ -156,20 +154,24 @@ namespace emado_swarma_csharp
                 return null;
             }
 
-            var cmd = new SQLiteCommand($"SELECT * FROM tbl_karyawan WHERE id = '{id}'", conn);
+            var cmd = new SQLiteCommand($"SELECT id, nama, golongan, jabatan," +
+                "departemen, gaji, tunjangan, tgl_lahir," +
+                "jenis_kelamin, alamat, no_rek, no_npwp, no_bpjs, lokasi, url_foto" +
+                $" FROM tbl_karyawan WHERE id = '{id}'", conn);
+
             var result = cmd.ExecuteReader();
             var k = new Karyawan();
 
             result.Read();
 
-            k.Id = int.Parse(result.GetString("id"));
+            k.Id = result.GetInt64("id");
             k.Nama = result.GetString("nama");
             k.Golongan = result.GetString("golongan");
             k.Jabatan = result.GetString("jabatan");
             k.Departemen = result.GetString("departemen");
             k.Gaji = (uint)result.GetInt32("gaji");
             k.Tunjangan = (uint)result.GetInt32("tunjangan");
-            k.TglLahir = result.GetDateTime("tgl_lahir").Date;
+            k.TglLahir = DateTime.ParseExact(result.GetString("tgl_lahir"), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             k.JenisKelamin = result.GetString("jenis_kelamin");
             k.Alamat = result.GetString("alamat");
             k.Norek = result.GetString("no_rek");
