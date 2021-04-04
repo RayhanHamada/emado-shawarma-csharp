@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Data.SQLite;
@@ -10,17 +11,39 @@ namespace emado_swarma_csharp
     {
         public static SQLiteConnection conn;
         public static DataTable Table { get; set; }
+        private static string appDir = AppDomain.CurrentDomain.BaseDirectory;
+        private static string dbPath = $"{appDir}\\db\\emado_shawarma.sqlite";
+
         public Koneksi()
         {
             try
             {
-                conn = new SQLiteConnection("Data Source=D:\\emado_shawarma;Version=3;");
+                // cek apakah di folder app ini sudah ada database emado_shawarma
+                if (!File.Exists(dbPath))
+                {
+                    CreateDB();
+                } else
+                {
+                    conn = new SQLiteConnection($"Data Source={dbPath};Version=3;");
+                    Connect();
+                }
+
                 conn.StateChange += Conn_StateChange;
                 Table = new DataTable();
             } catch 
             {
                 
             }
+        }
+
+        private void CreateDB()
+        {
+            SQLiteConnection.CreateFile(dbPath);
+            var createTableCmd = File.ReadAllText($"{appDir}\\db\\db_init.sql", System.Text.Encoding.UTF8);
+            conn = new SQLiteConnection($"Data Source={dbPath};Version=3;");
+            Connect();
+            var cmd = new SQLiteCommand(createTableCmd, conn);
+            cmd.ExecuteNonQuery();
         }
 
         public static void Connect()

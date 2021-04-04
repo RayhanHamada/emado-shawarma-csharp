@@ -31,11 +31,6 @@ namespace emado_swarma_csharp
             };
         }
 
-        private void btn_test_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show($"{dg_karyawan.Rows[0].Cells["tgl_lahir"].Value}");
-        }
-
         private void dg_karyawan_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;

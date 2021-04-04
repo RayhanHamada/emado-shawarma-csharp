@@ -41,23 +41,24 @@ namespace emado_swarma_csharp
 
         private void InitializeCustom()
         {
-
+            dt_tgl_lahir.CustomFormat = "dd-MM-yyyy";
         }
 
         private void btn_update_tambah_Click(object sender, EventArgs e)
         {
-            if (txt_nama.Text == "")
+            if (txt_nama.Text == "" 
+                || cb_golongan.Text == "" 
+                || cb_jabatan.Text == ""
+                || cb_departemen.Text == "")
             {
-                MessageBox.Show("Kolom Nama tidak boleh kosong", "Kesalahan Input");
+                MessageBox.Show("Kolom Nama, Golongan, Jabatan dan Departemen tidak boleh kosong", "Kesalahan Input");
             }
-            else
-            {
-                k.Nama = txt_nama.Text;
-            }
-
+            
+            k.Nama = txt_nama.Text;
             k.Golongan = cb_golongan.Text;
             k.Jabatan = cb_jabatan.Text;
             k.Departemen = cb_departemen.Text;
+
             try
             {
                 k.Gaji = uint.Parse(txt_gaji.Text);
@@ -156,6 +157,24 @@ namespace emado_swarma_csharp
             {
                 pb_foto.ImageLocation = dialog.FileName;
             }
+        }
+
+        private void btn_reset_form_Click(object sender, EventArgs e)
+        {
+            txt_nama.Text = "";
+            cb_golongan.Text = "";
+            cb_jabatan.Text = "";
+            cb_departemen.Text = "";
+            txt_gaji.Text = "";
+            txt_tunjangan.Text = "";
+            dt_tgl_lahir.Value = DateTime.Now;
+            cb_jk.Text = "";
+            rtb_alamat.Text = "";
+            txt_norek.Text = "";
+            txt_npwp.Text = "";
+            txt_bpjs.Text = "";
+            txt_lokasi.Text = "";
+            pb_foto.ImageLocation = "";
         }
     }
 }

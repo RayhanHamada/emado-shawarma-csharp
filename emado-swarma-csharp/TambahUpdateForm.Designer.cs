@@ -227,6 +227,9 @@ namespace emado_swarma_csharp
             // cb_jk
             // 
             this.cb_jk.FormattingEnabled = true;
+            this.cb_jk.Items.AddRange(new object[] {
+            "Pria",
+            "Wanita"});
             this.cb_jk.Location = new System.Drawing.Point(160, 379);
             this.cb_jk.Name = "cb_jk";
             this.cb_jk.Size = new System.Drawing.Size(296, 28);
@@ -289,6 +292,7 @@ namespace emado_swarma_csharp
             // 
             // dt_tgl_lahir
             // 
+            this.dt_tgl_lahir.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dt_tgl_lahir.Location = new System.Drawing.Point(160, 322);
             this.dt_tgl_lahir.Name = "dt_tgl_lahir";
             this.dt_tgl_lahir.Size = new System.Drawing.Size(296, 27);
@@ -311,6 +315,7 @@ namespace emado_swarma_csharp
             this.btn_reset_form.TabIndex = 34;
             this.btn_reset_form.Text = "Reset Form";
             this.btn_reset_form.UseVisualStyleBackColor = true;
+            this.btn_reset_form.Click += new System.EventHandler(this.btn_reset_form_Click);
             // 
             // TambahUpdateForm
             // 

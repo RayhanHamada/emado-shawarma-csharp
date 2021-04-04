@@ -33,8 +33,6 @@ namespace emado_swarma_csharp
                 return;
             }
 
-            //Koneksi ke database
-            Koneksi.Connect();
             if (Koneksi.IsConnected())
             {
                 tableForm = new TableForm();
@@ -49,6 +47,11 @@ namespace emado_swarma_csharp
         private void LoginForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_test_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"{AppDomain.CurrentDomain.BaseDirectory}");
         }
 
         public LoginForm()
