@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace emado_swarma_csharp
@@ -29,6 +30,18 @@ namespace emado_swarma_csharp
             {
                 ForeColor = Color.Green
             };
+
+            using (var colGaji = dg_karyawan.Columns["gaji"])
+            {
+                colGaji.DefaultCellStyle.Format = "C";
+                colGaji.DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("id-ID");
+            }
+
+            using (var colTunjangan = dg_karyawan.Columns["tunjangan"])
+            {
+                colTunjangan.DefaultCellStyle.Format = "C";
+                colTunjangan.DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("id-ID");
+            }
         }
 
         private void dg_karyawan_CellContentClick(object sender, DataGridViewCellEventArgs e)

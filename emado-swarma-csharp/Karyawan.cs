@@ -19,8 +19,8 @@ namespace emado_swarma_csharp
         public string NPWP { get; set; }
         public string BPJS { get; set; }
         public string Lokasi { get; set; }
-        public UInt32 Gaji { get; set; }
-        public UInt32 Tunjangan { get; set; }
+        public decimal Gaji { get; set; }
+        public decimal Tunjangan { get; set; }
         public string UrlFoto { get; set; }
 
         //untuk tambah data

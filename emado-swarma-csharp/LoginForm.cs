@@ -44,16 +44,6 @@ namespace emado_swarma_csharp
             MessageBox.Show("Aplikasi tidak terkoneksi ke database !");
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_test_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show($"{AppDomain.CurrentDomain.BaseDirectory}");
-        }
-
         public LoginForm()
         {
             InitializeComponent();

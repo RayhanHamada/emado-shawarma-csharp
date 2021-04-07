@@ -13,7 +13,7 @@ namespace emado_swarma_csharp
         public static DataTable Table { get; set; }
         private static string appDir = AppDomain.CurrentDomain.BaseDirectory;
         private static string dbPath = $"{appDir}\\db\\emado_shawarma.sqlite";
-
+        
         public Koneksi()
         {
             try
@@ -192,8 +192,8 @@ namespace emado_swarma_csharp
             k.Golongan = result.GetString("golongan");
             k.Jabatan = result.GetString("jabatan");
             k.Departemen = result.GetString("departemen");
-            k.Gaji = (uint)result.GetInt32("gaji");
-            k.Tunjangan = (uint)result.GetInt32("tunjangan");
+            k.Gaji = result.GetInt32("gaji");
+            k.Tunjangan = result.GetInt32("tunjangan");
             k.TglLahir = DateTime.ParseExact(result.GetString("tgl_lahir"), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             k.JenisKelamin = result.GetString("jenis_kelamin");
             k.Alamat = result.GetString("alamat");

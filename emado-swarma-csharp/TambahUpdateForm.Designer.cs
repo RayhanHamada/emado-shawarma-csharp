@@ -59,6 +59,8 @@ namespace emado_swarma_csharp
             this.dt_tgl_lahir = new System.Windows.Forms.DateTimePicker();
             this.btn_update_tambah = new System.Windows.Forms.Button();
             this.btn_reset_form = new System.Windows.Forms.Button();
+            this.lbl_rpGaji = new System.Windows.Forms.Label();
+            this.lbl_rpTunjangan = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pb_foto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,7 +112,7 @@ namespace emado_swarma_csharp
             // lbl_tunjangan
             // 
             this.lbl_tunjangan.AutoSize = true;
-            this.lbl_tunjangan.Location = new System.Drawing.Point(44, 274);
+            this.lbl_tunjangan.Location = new System.Drawing.Point(43, 294);
             this.lbl_tunjangan.Name = "lbl_tunjangan";
             this.lbl_tunjangan.Size = new System.Drawing.Size(78, 20);
             this.lbl_tunjangan.TabIndex = 53;
@@ -119,7 +121,7 @@ namespace emado_swarma_csharp
             // lbl_tgl_lahir
             // 
             this.lbl_tgl_lahir.AutoSize = true;
-            this.lbl_tgl_lahir.Location = new System.Drawing.Point(45, 327);
+            this.lbl_tgl_lahir.Location = new System.Drawing.Point(44, 372);
             this.lbl_tgl_lahir.Name = "lbl_tgl_lahir";
             this.lbl_tgl_lahir.Size = new System.Drawing.Size(97, 20);
             this.lbl_tgl_lahir.TabIndex = 64;
@@ -128,7 +130,7 @@ namespace emado_swarma_csharp
             // lbl_jk
             // 
             this.lbl_jk.AutoSize = true;
-            this.lbl_jk.Location = new System.Drawing.Point(44, 379);
+            this.lbl_jk.Location = new System.Drawing.Point(43, 424);
             this.lbl_jk.Name = "lbl_jk";
             this.lbl_jk.Size = new System.Drawing.Size(98, 20);
             this.lbl_jk.TabIndex = 75;
@@ -137,7 +139,7 @@ namespace emado_swarma_csharp
             // lbl_alamat
             // 
             this.lbl_alamat.AutoSize = true;
-            this.lbl_alamat.Location = new System.Drawing.Point(45, 422);
+            this.lbl_alamat.Location = new System.Drawing.Point(44, 467);
             this.lbl_alamat.Name = "lbl_alamat";
             this.lbl_alamat.Size = new System.Drawing.Size(57, 20);
             this.lbl_alamat.TabIndex = 86;
@@ -146,7 +148,7 @@ namespace emado_swarma_csharp
             // lbl_norek
             // 
             this.lbl_norek.AutoSize = true;
-            this.lbl_norek.Location = new System.Drawing.Point(45, 525);
+            this.lbl_norek.Location = new System.Drawing.Point(44, 560);
             this.lbl_norek.Name = "lbl_norek";
             this.lbl_norek.Size = new System.Drawing.Size(60, 20);
             this.lbl_norek.TabIndex = 92;
@@ -155,7 +157,7 @@ namespace emado_swarma_csharp
             // lbl_npwp
             // 
             this.lbl_npwp.AutoSize = true;
-            this.lbl_npwp.Location = new System.Drawing.Point(45, 563);
+            this.lbl_npwp.Location = new System.Drawing.Point(44, 598);
             this.lbl_npwp.Name = "lbl_npwp";
             this.lbl_npwp.Size = new System.Drawing.Size(50, 20);
             this.lbl_npwp.TabIndex = 104;
@@ -164,7 +166,7 @@ namespace emado_swarma_csharp
             // lbl_bpjs
             // 
             this.lbl_bpjs.AutoSize = true;
-            this.lbl_bpjs.Location = new System.Drawing.Point(45, 596);
+            this.lbl_bpjs.Location = new System.Drawing.Point(44, 631);
             this.lbl_bpjs.Name = "lbl_bpjs";
             this.lbl_bpjs.Size = new System.Drawing.Size(65, 20);
             this.lbl_bpjs.TabIndex = 115;
@@ -173,7 +175,7 @@ namespace emado_swarma_csharp
             // lbl_lokasi
             // 
             this.lbl_lokasi.AutoSize = true;
-            this.lbl_lokasi.Location = new System.Drawing.Point(45, 629);
+            this.lbl_lokasi.Location = new System.Drawing.Point(44, 664);
             this.lbl_lokasi.Name = "lbl_lokasi";
             this.lbl_lokasi.Size = new System.Drawing.Size(50, 20);
             this.lbl_lokasi.TabIndex = 121;
@@ -192,10 +194,12 @@ namespace emado_swarma_csharp
             this.txt_gaji.Name = "txt_gaji";
             this.txt_gaji.Size = new System.Drawing.Size(296, 27);
             this.txt_gaji.TabIndex = 5;
+            this.txt_gaji.TextChanged += new System.EventHandler(this.txt_gaji_TextChanged);
+            this.txt_gaji.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_gaji_KeyPress);
             // 
             // txt_norek
             // 
-            this.txt_norek.Location = new System.Drawing.Point(160, 522);
+            this.txt_norek.Location = new System.Drawing.Point(159, 557);
             this.txt_norek.Name = "txt_norek";
             this.txt_norek.Size = new System.Drawing.Size(296, 27);
             this.txt_norek.TabIndex = 10;
@@ -230,35 +234,35 @@ namespace emado_swarma_csharp
             this.cb_jk.Items.AddRange(new object[] {
             "Pria",
             "Wanita"});
-            this.cb_jk.Location = new System.Drawing.Point(160, 379);
+            this.cb_jk.Location = new System.Drawing.Point(159, 424);
             this.cb_jk.Name = "cb_jk";
             this.cb_jk.Size = new System.Drawing.Size(296, 28);
             this.cb_jk.TabIndex = 8;
             // 
             // txt_npwp
             // 
-            this.txt_npwp.Location = new System.Drawing.Point(160, 560);
+            this.txt_npwp.Location = new System.Drawing.Point(159, 595);
             this.txt_npwp.Name = "txt_npwp";
             this.txt_npwp.Size = new System.Drawing.Size(296, 27);
             this.txt_npwp.TabIndex = 11;
             // 
             // txt_bpjs
             // 
-            this.txt_bpjs.Location = new System.Drawing.Point(160, 593);
+            this.txt_bpjs.Location = new System.Drawing.Point(159, 628);
             this.txt_bpjs.Name = "txt_bpjs";
             this.txt_bpjs.Size = new System.Drawing.Size(296, 27);
             this.txt_bpjs.TabIndex = 12;
             // 
             // txt_lokasi
             // 
-            this.txt_lokasi.Location = new System.Drawing.Point(160, 626);
+            this.txt_lokasi.Location = new System.Drawing.Point(159, 661);
             this.txt_lokasi.Name = "txt_lokasi";
             this.txt_lokasi.Size = new System.Drawing.Size(296, 27);
             this.txt_lokasi.TabIndex = 13;
             // 
             // rtb_alamat
             // 
-            this.rtb_alamat.Location = new System.Drawing.Point(160, 422);
+            this.rtb_alamat.Location = new System.Drawing.Point(159, 467);
             this.rtb_alamat.Name = "rtb_alamat";
             this.rtb_alamat.Size = new System.Drawing.Size(296, 75);
             this.rtb_alamat.TabIndex = 9;
@@ -285,15 +289,17 @@ namespace emado_swarma_csharp
             // 
             // txt_tunjangan
             // 
-            this.txt_tunjangan.Location = new System.Drawing.Point(160, 265);
+            this.txt_tunjangan.Location = new System.Drawing.Point(160, 291);
             this.txt_tunjangan.Name = "txt_tunjangan";
             this.txt_tunjangan.Size = new System.Drawing.Size(296, 27);
             this.txt_tunjangan.TabIndex = 6;
+            this.txt_tunjangan.TextChanged += new System.EventHandler(this.txt_tunjangan_TextChanged);
+            this.txt_tunjangan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_tunjangan_KeyPress);
             // 
             // dt_tgl_lahir
             // 
             this.dt_tgl_lahir.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dt_tgl_lahir.Location = new System.Drawing.Point(160, 322);
+            this.dt_tgl_lahir.Location = new System.Drawing.Point(159, 367);
             this.dt_tgl_lahir.Name = "dt_tgl_lahir";
             this.dt_tgl_lahir.Size = new System.Drawing.Size(296, 27);
             this.dt_tgl_lahir.TabIndex = 7;
@@ -317,11 +323,31 @@ namespace emado_swarma_csharp
             this.btn_reset_form.UseVisualStyleBackColor = true;
             this.btn_reset_form.Click += new System.EventHandler(this.btn_reset_form_Click);
             // 
+            // lbl_rpGaji
+            // 
+            this.lbl_rpGaji.AutoSize = true;
+            this.lbl_rpGaji.Location = new System.Drawing.Point(159, 250);
+            this.lbl_rpGaji.Name = "lbl_rpGaji";
+            this.lbl_rpGaji.Size = new System.Drawing.Size(17, 20);
+            this.lbl_rpGaji.TabIndex = 313;
+            this.lbl_rpGaji.Text = "  ";
+            // 
+            // lbl_rpTunjangan
+            // 
+            this.lbl_rpTunjangan.AutoSize = true;
+            this.lbl_rpTunjangan.Location = new System.Drawing.Point(159, 321);
+            this.lbl_rpTunjangan.Name = "lbl_rpTunjangan";
+            this.lbl_rpTunjangan.Size = new System.Drawing.Size(17, 20);
+            this.lbl_rpTunjangan.TabIndex = 314;
+            this.lbl_rpTunjangan.Text = "  ";
+            // 
             // TambahUpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(866, 716);
+            this.Controls.Add(this.lbl_rpTunjangan);
+            this.Controls.Add(this.lbl_rpGaji);
             this.Controls.Add(this.btn_reset_form);
             this.Controls.Add(this.btn_update_tambah);
             this.Controls.Add(this.dt_tgl_lahir);
@@ -392,5 +418,7 @@ namespace emado_swarma_csharp
         private System.Windows.Forms.DateTimePicker dt_tgl_lahir;
         private System.Windows.Forms.Button btn_update_tambah;
         private System.Windows.Forms.Button btn_reset_form;
+        private System.Windows.Forms.Label lbl_rpGaji;
+        private System.Windows.Forms.Label lbl_rpTunjangan;
     }
 }

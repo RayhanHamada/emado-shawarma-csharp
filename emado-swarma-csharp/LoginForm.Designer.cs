@@ -34,7 +34,6 @@ namespace emado_swarma_csharp
             this.txt_username = new System.Windows.Forms.TextBox();
             this.txt_password = new System.Windows.Forms.TextBox();
             this.btn_login = new System.Windows.Forms.Button();
-            this.btn_test = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_username
@@ -80,22 +79,11 @@ namespace emado_swarma_csharp
             this.btn_login.UseVisualStyleBackColor = true;
             this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
             // 
-            // btn_test
-            // 
-            this.btn_test.Location = new System.Drawing.Point(12, 336);
-            this.btn_test.Name = "btn_test";
-            this.btn_test.Size = new System.Drawing.Size(94, 29);
-            this.btn_test.TabIndex = 13;
-            this.btn_test.Text = "test";
-            this.btn_test.UseVisualStyleBackColor = true;
-            this.btn_test.Click += new System.EventHandler(this.btn_test_Click);
-            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 368);
-            this.Controls.Add(this.btn_test);
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.txt_password);
             this.Controls.Add(this.txt_username);
@@ -103,7 +91,6 @@ namespace emado_swarma_csharp
             this.Controls.Add(this.lbl_username);
             this.Name = "LoginForm";
             this.Text = "Login Emado HRIS";
-            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,7 +103,6 @@ namespace emado_swarma_csharp
         private System.Windows.Forms.TextBox txt_username;
         private System.Windows.Forms.TextBox txt_password;
         private System.Windows.Forms.Button btn_login;
-        private System.Windows.Forms.Button btn_test;
     }
 }
 

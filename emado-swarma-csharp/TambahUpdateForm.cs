@@ -52,6 +52,7 @@ namespace emado_swarma_csharp
                 || cb_departemen.Text == "")
             {
                 MessageBox.Show("Kolom Nama, Golongan, Jabatan dan Departemen tidak boleh kosong", "Kesalahan Input");
+                return;
             }
             
             k.Nama = txt_nama.Text;
@@ -61,7 +62,7 @@ namespace emado_swarma_csharp
 
             try
             {
-                k.Gaji = uint.Parse(txt_gaji.Text);
+                k.Gaji = decimal.Parse(txt_gaji.Text);
             } catch (Exception e1)
             {
                 if (e1 is FormatException)
@@ -73,7 +74,7 @@ namespace emado_swarma_csharp
 
             try
             {
-                k.Tunjangan = uint.Parse(txt_tunjangan.Text);
+                k.Tunjangan = decimal.Parse(txt_tunjangan.Text);
             }
             catch (Exception e1)
             {
@@ -175,6 +176,51 @@ namespace emado_swarma_csharp
             txt_bpjs.Text = "";
             txt_lokasi.Text = "";
             pb_foto.ImageLocation = "";
+        }
+
+        private void txt_gaji_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void txt_tunjangan_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void txt_gaji_TextChanged(object sender, EventArgs e)
+        {
+            decimal gaji;
+
+            try
+            {
+                gaji = decimal.Parse(txt_gaji.Text);
+            } catch
+            {
+                gaji = 0;
+            }
+
+            lbl_rpGaji.Text = string.Format(
+                System.Globalization.CultureInfo.GetCultureInfo("id-ID"), 
+                "{0:C}", gaji);
+        }
+
+        private void txt_tunjangan_TextChanged(object sender, EventArgs e)
+        {
+            decimal tunjangan;
+
+            try
+            {
+                tunjangan = decimal.Parse(txt_tunjangan.Text);
+            }
+            catch
+            {
+                tunjangan = 0;
+            }
+
+            lbl_rpTunjangan.Text = string.Format(
+                System.Globalization.CultureInfo.GetCultureInfo("id-ID"),
+                "{0:C}", tunjangan);
         }
     }
 }
