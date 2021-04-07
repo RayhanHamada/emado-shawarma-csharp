@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Linq;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 
 namespace emado_swarma_csharp
 {
@@ -42,6 +42,29 @@ namespace emado_swarma_csharp
                 colTunjangan.DefaultCellStyle.Format = "C";
                 colTunjangan.DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("id-ID");
             }
+
+            mi_exportExcel.Click += Mi_exportExcel_Click;
+            FormClosed += TableForm_FormClosed;
+        }
+
+        private void TableForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose(true);
+            Environment.Exit(0);
+        }
+
+        private void Mi_exportExcel_Click(object sender, EventArgs e)
+        {
+            var workbook = new XLWorkbook();
+            workbook.AddWorksheet(Koneksi.Table, "data_karyawan");
+            workbook.Worksheet("data_karyawan").ColumnWidth = 25.0;
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.FileName = $"export_data_karyawan_{ DateTime.Now.ToString("dd_MM_yyyy")}.xlsx";
+            sfd.Filter = "Excel |*.xlsx";
+            sfd.ShowDialog();
+
+            workbook.SaveAs(sfd.FileName);
         }
 
         private void dg_karyawan_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -81,7 +104,7 @@ namespace emado_swarma_csharp
                 var id = (long)senderGrid.Rows[rowIndex].Cells["id"].Value;
 
                 var formUpdate = new TambahUpdateForm(id);
-                formUpdate.Show();
+                formUpdate.Show(this);
                 ResetTextCari();
             }
         }
@@ -89,7 +112,7 @@ namespace emado_swarma_csharp
         private void btn_tambah_Click(object sender, EventArgs e)
         {
             var formTambah = new TambahUpdateForm();
-            formTambah.Show();
+            formTambah.Show(this);
             ResetTextCari();
         }
 

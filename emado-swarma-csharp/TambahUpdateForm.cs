@@ -29,7 +29,7 @@ namespace emado_swarma_csharp
             k = Koneksi.GetKaryawan(id);
             if (k.Equals(null))
             {
-                this.Close();
+                Close();
             }
 
             namaSebelum = k.Nama;
@@ -42,6 +42,12 @@ namespace emado_swarma_csharp
         private void InitializeCustom()
         {
             dt_tgl_lahir.CustomFormat = "dd-MM-yyyy";
+            FormClosed += TambahUpdateForm_FormClosed;
+        }
+
+        private void TambahUpdateForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose();
         }
 
         private void btn_update_tambah_Click(object sender, EventArgs e)

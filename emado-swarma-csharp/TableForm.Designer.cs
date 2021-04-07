@@ -35,7 +35,11 @@ namespace emado_swarma_csharp
             this.col_hapus = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_update = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txt_cari = new System.Windows.Forms.TextBox();
+            this.ms_shawarma = new System.Windows.Forms.MenuStrip();
+            this.file = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_exportExcel = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dg_karyawan)).BeginInit();
+            this.ms_shawarma.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_tambah
@@ -106,6 +110,31 @@ namespace emado_swarma_csharp
             this.txt_cari.TabIndex = 3;
             this.txt_cari.TextChanged += new System.EventHandler(this.txt_cari_TextChanged);
             // 
+            // ms_shawarma
+            // 
+            this.ms_shawarma.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.ms_shawarma.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.file});
+            this.ms_shawarma.Location = new System.Drawing.Point(0, 0);
+            this.ms_shawarma.Name = "ms_shawarma";
+            this.ms_shawarma.Size = new System.Drawing.Size(1131, 28);
+            this.ms_shawarma.TabIndex = 4;
+            this.ms_shawarma.Text = "menuStrip1";
+            // 
+            // file
+            // 
+            this.file.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mi_exportExcel});
+            this.file.Name = "file";
+            this.file.Size = new System.Drawing.Size(46, 24);
+            this.file.Text = "File";
+            // 
+            // mi_exportExcel
+            // 
+            this.mi_exportExcel.Name = "mi_exportExcel";
+            this.mi_exportExcel.Size = new System.Drawing.Size(260, 26);
+            this.mi_exportExcel.Text = "Export Database To Excel";
+            // 
             // TableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -116,10 +145,13 @@ namespace emado_swarma_csharp
             this.Controls.Add(this.dg_karyawan);
             this.Controls.Add(this.btn_refresh);
             this.Controls.Add(this.btn_tambah);
+            this.Controls.Add(this.ms_shawarma);
             this.Name = "TableForm";
             this.Text = "Tabel";
             this.Load += new System.EventHandler(this.TableForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dg_karyawan)).EndInit();
+            this.ms_shawarma.ResumeLayout(false);
+            this.ms_shawarma.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,5 +165,8 @@ namespace emado_swarma_csharp
         private System.Windows.Forms.TextBox txt_cari;
         private System.Windows.Forms.DataGridViewButtonColumn col_hapus;
         private System.Windows.Forms.DataGridViewButtonColumn col_update;
+        private System.Windows.Forms.MenuStrip ms_shawarma;
+        private System.Windows.Forms.ToolStripMenuItem file;
+        private System.Windows.Forms.ToolStripMenuItem mi_exportExcel;
     }
 }

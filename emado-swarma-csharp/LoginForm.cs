@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace emado_swarma_csharp
@@ -36,8 +29,8 @@ namespace emado_swarma_csharp
             if (Koneksi.IsConnected())
             {
                 tableForm = new TableForm();
-                tableForm.Show();
-                this.Visible = false;
+                tableForm.Show(this);
+                Visible = false;
                 return;
             }
 
@@ -48,6 +41,13 @@ namespace emado_swarma_csharp
         {
             InitializeComponent();
             username = password = "";
+            FormClosed += LoginForm_FormClosed;
+        }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose(true);
+            Environment.Exit(0);
         }
     }
 }
