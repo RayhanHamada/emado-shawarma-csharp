@@ -12,19 +12,20 @@ namespace emado_swarma_csharp
         public static SQLiteConnection conn;
         public static DataTable Table { get; set; }
         private static string appDir = AppDomain.CurrentDomain.BaseDirectory;
-        private static string dbPath = $"{appDir}\\db\\emado_shawarma.sqlite";
-        
+        private string dbPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\emado_shawarma";
+
         public Koneksi()
         {
             try
             {
                 // cek apakah di folder app ini sudah ada database emado_shawarma
-                if (!File.Exists(dbPath))
+                if (!File.Exists($"{dbPath}\\emado_shawarma.sqlite"))
                 {
-                    CreateDB();
+                    CreateDB(dbPath);
+                    
                 } else
                 {
-                    conn = new SQLiteConnection($"Data Source={dbPath};Version=3;");
+                    conn = new SQLiteConnection($"Data Source={dbPath}\\emado_shawarma.sqlite;Version=3;");
                     Connect();
                 }
 
@@ -36,12 +37,13 @@ namespace emado_swarma_csharp
             }
         }
 
-        private void CreateDB()
+        private void CreateDB(string dbPath)
         {
-            SQLiteConnection.CreateFile(dbPath);
+            Directory.CreateDirectory(dbPath);
+            SQLiteConnection.CreateFile($"{dbPath}\\emado_shawarma.sqlite");
             var createTableCmd = File.ReadAllText($"{appDir}\\db\\db_init.sql", System.Text.Encoding.UTF8);
-            conn = new SQLiteConnection($"Data Source={dbPath};Version=3;");
-            Connect();
+            conn = new SQLiteConnection($"Data Source={dbPath}\\emado_shawarma.sqlite; Version=3;");
+            conn.Open();
             var cmd = new SQLiteCommand(createTableCmd, conn);
             cmd.ExecuteNonQuery();
         }
@@ -57,6 +59,7 @@ namespace emado_swarma_csharp
 
         public static bool IsConnected()
         {
+            if (conn == null) return false;
             return conn.State == ConnectionState.Open;
         }
 

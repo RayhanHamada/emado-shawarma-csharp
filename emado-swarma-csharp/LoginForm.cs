@@ -44,6 +44,7 @@ namespace emado_swarma_csharp
             FormClosed += LoginForm_FormClosed;
         }
 
+
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Dispose(true);

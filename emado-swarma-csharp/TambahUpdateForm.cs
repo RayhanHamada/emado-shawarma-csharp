@@ -69,40 +69,26 @@ namespace emado_swarma_csharp
             try
             {
                 k.Gaji = decimal.Parse(txt_gaji.Text);
-            } catch (Exception e1)
+            } catch
             {
-                if (e1 is FormatException)
-                {
-                    MessageBox.Show("Penulisan Gaji tidak benar", "Kesalahan Input");
-                }
-                MessageBox.Show("Kolom Gaji tidak boleh kosong");
+                k.Gaji = 0;
             }
 
             try
             {
                 k.Tunjangan = decimal.Parse(txt_tunjangan.Text);
             }
-            catch (Exception e1)
+            catch 
             {
-                if (e1 is FormatException)
-                {
-                    MessageBox.Show("Penulisan Tunjangan tidak benar", "Kesalahan Input");
-                }
-                MessageBox.Show("Kolom Tunjangan tidak boleh kosong");
+                k.Tunjangan = 0;
             }
 
             k.TglLahir = dt_tgl_lahir.Value;
             k.JenisKelamin = cb_jk.Text;
             k.Alamat = rtb_alamat.Text;
 
-            if (txt_norek.Text == "")
-            {
-                MessageBox.Show("Kolom Norek tidak boleh kosong", "Kesalahan Input");
-            } else
-            {
-                k.Norek = txt_norek.Text;
-            }
-            
+            k.Norek = txt_norek.Text;
+
             k.NPWP = txt_npwp.Text;
             k.BPJS = txt_bpjs.Text;
             k.Lokasi = txt_lokasi.Text;
